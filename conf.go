@@ -23,6 +23,7 @@ type Config struct {
 }
 
 var defaultName = "default"
+var conflist []map[string]map[string]string = nil
 
 //Create an empty configuration file
 func SetConfig(filepath string) *Config {
@@ -40,7 +41,6 @@ func (c *Config) GetValueDefault(name string) string {
 func (c *Config) GetValue(section, name string) string {
 	c.ReadList()
 	conf := c.ReadList()
-	fmt.Println(conf)
 	for _, v := range conf {
 		for key, value := range v {
 			if key == section {
@@ -110,6 +110,9 @@ func (c *Config) DeleteValue(section, name string) bool {
 
 //List all the configuration file
 func (c *Config) ReadList() []map[string]map[string]string {
+	if conflist != nil {
+		return conflist
+	}
 	file, err := os.Open(c.filepath)
 	if err != nil {
 		CheckErr(err)
@@ -118,6 +121,7 @@ func (c *Config) ReadList() []map[string]map[string]string {
 	var data map[string]map[string]string
 	var section string = defaultName
 	buf := bufio.NewReader(file)
+
 	for {
 		l, err := buf.ReadString('\n')
 		line := strings.TrimSpace(l)
@@ -129,6 +133,7 @@ func (c *Config) ReadList() []map[string]map[string]string {
 				break
 			}
 		}
+
 		switch {
 		case len(line) == 0:
 		case line[0] == '#' || line[0] == ';':
@@ -137,6 +142,10 @@ func (c *Config) ReadList() []map[string]map[string]string {
 			data = make(map[string]map[string]string)
 			data[section] = make(map[string]string)
 		default:
+			if len(data) == 0 {
+				data = make(map[string]map[string]string)
+				data[section] = make(map[string]string)
+			}
 			i := strings.IndexAny(line, "=")
 			value := strings.TrimSpace(line[i+1 : len(line)])
 			data[section][strings.TrimSpace(line[0:i])] = value
@@ -146,7 +155,7 @@ func (c *Config) ReadList() []map[string]map[string]string {
 		}
 
 	}
-
+	conflist = c.conflist
 	return c.conflist
 }
 
