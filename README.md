@@ -1,5 +1,5 @@
 # goini<br/>
-这是一个golang读取ini配置文件的工具，<br/>
+这是一个golang读取ini配置文件的工具，工具依赖于github.com/widuu/goini 修改，添加了默认没有section 时，默认为default ，添加了ini文件中可以写注释，注释行以 #或 ;  开头<br/>
 <br/>
 #描述<br/>
 <br/>
@@ -7,7 +7,7 @@
 <br/>
 #安装方法<br/>
 <br/>
-gp get github.com/widuu/goini<br/>
+go get github.com/nikeyhi/goini<br/>
 #使用方法<br/>
 <br/>
 #ini配置文件格式样列<br/>
@@ -35,9 +35,9 @@ if len(username) == 0 {<br/>
     fmt.Println("username is not exists") //this stdout username is not exists<br/>
 }<br/>
 #添加一个配置信息<br/>
-conf.SetValue("database", "username", "widuu")<br/>
+conf.SetValue("database", "username", "nikeyhi")<br/>
 username = conf.GetValue("database", "username")<br/>
-fmt.Println(username) //widuu 添加配置信息如果存在[section]则添加或者修改对应的值，如果不存在则添加section<br/>
+fmt.Println(username) //nikeyhi 添加配置信息如果存在[section]则添加或者修改对应的值，如果不存在则添加section<br/>
 #获取所有配置信息<br/>
 conf.ReadList() //返回[]map[string]map[string]string的格式 即setion=>key->value<br/>
 goini<br/>
@@ -76,8 +76,8 @@ if len(username) == 0 {<br/>
     fmt.Println("username is not exists") //this stdout username is not exists<br/>
 }<br/>
 ###Add a configuration information<br/>
-conf.SetValue("database", "username", "widuu")<br/>
+conf.SetValue("database", "username", "nikeyhi")<br/>
 username = conf.GetValue("database", "username")<br/>
-fmt.Println(username) //widuu Adding/section configuration information if there is to add or modify the value of the corresponding, if there is no add section<br/>
+fmt.Println(username) //nikeyhi Adding/section configuration information if there is to add or modify the value of the corresponding, if there is no add section<br/>
 ###Get all the configuration information<br/>
 conf.ReadList() //return []map[string]map[string]string  example:setion=>key->value<br/>
