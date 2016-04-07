@@ -20,13 +20,14 @@ hostname = localhost<br/>
 username = root<br/>
 password = password<br/>
 <br/>
-[nihao]<br/>
+[default]<br/>
 username = root<br/>
 password = password<br/>
 #初始化<br/>
 conf := goini.SetConfig("./conf/conf.ini") //goini.SetConfig(filepath) 其中filepath是你ini 配置文件的所在位置<br/>
 #获取单个配置信息<br/>
 username := conf.GetValue("database", "username") //database是你的[section]，username是你要获取值的key名称<br/>
+username := conf.GetDefaultValue( "username") //section 默认是 [default]，username是你要获取值的key名称<br/>
 fmt.Println(username) //root<br/>
 #删除一个配置信息<br/>
 conf.DeleteValue("database", "username")    //username 是你删除的key<br/>
