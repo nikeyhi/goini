@@ -1,95 +1,111 @@
-# goini<br/>
-这是一个golang读取ini配置文件的工具，工具依赖于github.com/widuu/goini 修改，添加了默认没有section 时，默认为default ，添加了ini文件中可以写注释，注释行以 #或 ;  开头<br/>
-<br/>
-# 描述<br/>
-<br/>
-使用goini更简单的读取go的ini配置文件以及根据特定格式的各种配置文件。<br/>
-<br/>
-# 安装方法<br/>
-<br/>
-go get github.com/nikeyhi/goini<br/>
-# 使用方法<br/>
-<br/>
-# ini配置文件格式样列<br/>
-[database]<br/>
-username = root<br/>
-password = password<br/>
-hostname = localhost<br/>
-<br/>
-[admin]<br/>
-username = root<br/>
-password = password<br/>
-<br/>
-[default]<br/>
-username = root<br/>
-password = password<br/>
-# 初始化<br/>
+# goini
+这是一个golang读取ini配置文件的工具，工具依赖于github.com/widuu/goini 修改，添加了默认没有section 时，默认为default ，添加了ini文件中可以写注释，注释行以 #或 ;  开头
+
+# 描述
+
+使用goini更简单的读取go的ini配置文件以及根据特定格式的各种配置文件。
+
+# 安装方法
 ```
-conf := goini.SetConfig("./conf/conf.ini") //goini.SetConfig(filepath) 其中filepath是你ini 配置文件的所在位置<br/>
+go get github.com/nikeyhi/goini
 ```
-# 获取单个配置信息<br/>
+# 使用方法
+
+## ini配置文件格式样列
 ```
-username := conf.GetValue("database", "username") //database是你的[section]，username是你要获取值的key名称<br/>
-username := conf.GetDefaultValue( "username") //section 默认是 [default]，username是你要获取值的key名称<br/>
-fmt.Println(username) //root<br/>
+[database]
+username = root
+password = password
+hostname = localhost
+
+[admin]
+username = root
+password = password
+
+[default]
+username = root
+password = password
 ```
 
-# 删除一个配置信息<br/>
+## 初始化
 ```
-conf.DeleteValue("database", "username")    //username 是你删除的key<br/>
-username = conf.GetValue("database", "username")<br/>
-if len(username) == 0 {<br/>
-    fmt.Println("username is not exists") //this stdout username is not exists<br/>
-}<br/>
+conf := goini.SetConfig("./conf/conf.ini") //goini.SetConfig(filepath) 其中filepath是你ini 配置文件的所在位置
 ```
-# 添加一个配置信息<br/>
+## 获取单个配置信息
 ```
-conf.SetValue("database", "username", "nikeyhi")<br/>
-username = conf.GetValue("database", "username")<br/>
-fmt.Println(username) //nikeyhi 添加配置信息如果存在[section]则添加或者修改对应的值，如果不存在则添加section<br/>
+username := conf.GetValue("database", "username") //database是你的[section]，username是你要获取值的key名称
+username := conf.GetDefaultValue( "username") //section 默认是 [default]，username是你要获取值的key名称
+fmt.Println(username) //root
 ```
-# 获取所有配置信息<br/>
+
+## 删除一个配置信息
 ```
-conf.ReadList() //返回[]map[string]map[string]string的格式 即setion=>key->value<br/>
+conf.DeleteValue("database", "username")    //username 是你删除的key
+username = conf.GetValue("database", "username")
+if len(username) == 0 {
+    fmt.Println("username is not exists") //this stdout username is not exists
+}
 ```
-goini<br/>
-# About<br/>
-<br/>
-使用goini更简单的读取go的ini配置文件以及根据特定格式的各种配置文件。<br/>
-<br/>
-# install<br/>
-<br/>
-go get github.com/nikeyhi/goini<br/>
+
+## 添加一个配置信息
+```
+conf.SetValue("database", "username", "nikeyhi")
+username = conf.GetValue("database", "username")
+fmt.Println(username) //nikeyhi 添加配置信息如果存在[section]则添加或者修改对应的值，如果不存在则添加section
+```
+
+## 获取所有配置信息
+```
+conf.ReadList() //返回[]map[string]map[string]string的格式 即setion=>key->value
+```
+goini
+
+# About
+使用goini更简单的读取go的ini配置文件以及根据特定格式的各种配置文件。
+# install
+```
+go get github.com/nikeyhi/goini
+```
 # use example<br/>
-<br/>
-conf.ini<br/>
-[database]<br/>
-username = root<br/>
-password = password<br/>
-hostname = localhost<br/>
-<br/>
-[admin]<br/>
-username = root<br/>
-password = password<br/>
-<br/>
-[nihao]<br/>
-username = root<br/>
-password = password<br/>
-<br/>
-### initialize<br/>
-conf := goini.SetConfig("./conf/conf.ini") //goini.SetConfig(filepath) filepath = directory+file<br/>
-### To obtain a single configuration information<br/>
-username := conf.GetValue("database", "username") //username is your key you want get the value<br/>
-fmt.Println(username) //root<br/>
-### To delete a configuration information<br/>
-conf.DeleteValue("database", "username")    //username is your delete the key<br/>
-username = conf.GetValue("database", "username")<br/>
-if len(username) == 0 {<br/>
-    fmt.Println("username is not exists") //this stdout username is not exists<br/>
-}<br/>
-### Add a configuration information<br/>
-conf.SetValue("database", "username", "nikeyhi")<br/>
-username = conf.GetValue("database", "username")<br/>
-fmt.Println(username) //nikeyhi Adding/section configuration information if there is to add or modify the value of the corresponding, if there is no add section<br/>
-### Get all the configuration information<br/>
-conf.ReadList() //return []map[string]map[string]string  example:setion=>key->value<br/>
+conf.ini
+```
+[database]
+username = root
+password = password
+hostname = localhost
+
+[admin]
+username = root
+password = password
+
+[nihao]
+username = root
+password = password
+```
+### initialize
+```
+conf := goini.SetConfig("./conf/conf.ini") //goini.SetConfig(filepath) filepath = directory+file
+```
+### To obtain a single configuration information
+```
+username := conf.GetValue("database", "username") //username is your key you want get the value
+fmt.Println(username) //root
+```
+### To delete a configuration information
+```
+conf.DeleteValue("database", "username")    //username is your delete the key
+username = conf.GetValue("database", "username")
+if len(username) == 0 {
+    fmt.Println("username is not exists") //this stdout username is not exists
+}
+```
+### Add a configuration information
+```
+conf.SetValue("database", "username", "nikeyhi")
+username = conf.GetValue("database", "username")
+fmt.Println(username) //nikeyhi Adding/section configuration information if there is to add or modify the value of the corresponding, if there is no add section
+```
+### Get all the configuration information
+```
+conf.ReadList() //return []map[string]map[string]string  example:setion=>key->value
+```
