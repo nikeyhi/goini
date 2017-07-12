@@ -24,23 +24,34 @@ password = password<br/>
 username = root<br/>
 password = password<br/>
 #初始化<br/>
+```
 conf := goini.SetConfig("./conf/conf.ini") //goini.SetConfig(filepath) 其中filepath是你ini 配置文件的所在位置<br/>
+```
 #获取单个配置信息<br/>
+```
 username := conf.GetValue("database", "username") //database是你的[section]，username是你要获取值的key名称<br/>
 username := conf.GetDefaultValue( "username") //section 默认是 [default]，username是你要获取值的key名称<br/>
 fmt.Println(username) //root<br/>
+```
+
 #删除一个配置信息<br/>
+```
 conf.DeleteValue("database", "username")    //username 是你删除的key<br/>
 username = conf.GetValue("database", "username")<br/>
 if len(username) == 0 {<br/>
     fmt.Println("username is not exists") //this stdout username is not exists<br/>
 }<br/>
+``
 #添加一个配置信息<br/>
+```
 conf.SetValue("database", "username", "nikeyhi")<br/>
 username = conf.GetValue("database", "username")<br/>
 fmt.Println(username) //nikeyhi 添加配置信息如果存在[section]则添加或者修改对应的值，如果不存在则添加section<br/>
+```
 #获取所有配置信息<br/>
+```
 conf.ReadList() //返回[]map[string]map[string]string的格式 即setion=>key->value<br/>
+```
 goini<br/>
 #About<br/>
 <br/>
